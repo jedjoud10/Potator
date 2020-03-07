@@ -3,7 +3,12 @@ guid: 80c354deca522854a83afcef373de699
 ModelImporter:
   serializedVersion: 28
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frier_Mat
+    second: {fileID: 2100000, guid: fe9519eb78e8cfa43b346bf4edf04dad, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
