@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 //Script that controls the client player
-public class PlayerControllerScript : MonoBehaviour
+public class PlayerControllerScript : NetworkedBehaviour
 {
     private Rigidbody rb;//The rigidbody that the player has for physics
     public float speed;//The walking speed of the player
-    public GameObject cameraobject;//the camera of the player
+    private GameObject cameraobject;//the camera of the player
+    public GameObject weapon;//Weapon gameobject
     private float cameraRotationX;//The rotation of the camera in an up/down axis
     public float sensivity;//The sensivity of the camera rotation 
     private PlayerInputActions inputAction;//Input actions
     private Vector2 movementInput;//Movement input of player
     private Vector3 movement;//The movement of the player with Y axis
     private Vector2 cameraRotation;//Rotation of camera
+    public GameObject cameraHolder;//Object that will hold the main camera
     private void Awake()
     {
         //Init player input controls
@@ -28,6 +31,15 @@ public class PlayerControllerScript : MonoBehaviour
         //Init correct cursor settings
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if (IsLocalPlayer)
+        {
+            //Init camera for this player
+            cameraobject = GameObject.FindGameObjectWithTag("MainCamera");
+            cameraobject.tag = "Untagged";
+            cameraobject.transform.parent = cameraHolder.transform;
+            cameraobject.transform.localPosition = Vector3.zero;
+            Debug.LogError("Camera has been attached correctly");
+        }
     }
 
     // Update is called once per frame
@@ -37,13 +49,17 @@ public class PlayerControllerScript : MonoBehaviour
         movement.x = movementInput.x;
         movement.z = movementInput.y;
         movement.y = 0;//Jump still needs to be worked on
-        Debug.Log(movement);
         rb.MovePosition(rb.position + transform.TransformDirection(movement * speed * Time.deltaTime));
         cameraRotationX -= cameraRotation.y * sensivity;
         cameraRotationX = Mathf.Clamp(cameraRotationX, -90, 90);
-        cameraobject.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
-        transform.Rotate(new Vector3(0, cameraRotation.x * sensivity), Space.Self);
+        if (cameraobject != null)
+        {
+            cameraobject.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
+            transform.Rotate(new Vector3(0, cameraRotation.x * sensivity), Space.Self);
+            weapon.transform.rotation = cameraobject.transform.rotation;
+        }
     }
+
     #region Enable/Disable
     private void OnEnable()
     {
