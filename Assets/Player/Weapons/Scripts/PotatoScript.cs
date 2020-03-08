@@ -17,6 +17,7 @@ public class PotatoScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         planets = GameObject.FindObjectsOfType<PlanetRigidbodyScript>();
         rb.AddForce(transform.forward * speed);
+        Destroy(gameObject, 10.0f);//Potatoes dont live forever ;-;
     }
 
     // Update is called once per frame

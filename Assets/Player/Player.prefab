@@ -208,6 +208,7 @@ MonoBehaviour:
   barreloutput: {fileID: 7921901967934057032}
   potatoPrefab: {fileID: 1651578327977778261, guid: c2b14eca8c891fa45babbc2be49880d1,
     type: 3}
+  delaytime: 0.4
 --- !u!1 &8066729020100111843
 GameObject:
   m_ObjectHideFlags: 0
