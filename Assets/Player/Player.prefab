@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3997531394921068651}
   - component: {fileID: 4716266133288599561}
+  - component: {fileID: 4362003684011748616}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -140,6 +141,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1972015014588097922}
+  - {fileID: 7921901967934057032}
   m_Father: {fileID: 8887891488327688715}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,6 +193,51 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4362003684011748616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7931070059190395367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53cf18822368494f8856936ac9d681f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barreloutput: {fileID: 7921901967934057032}
+  potatoPrefab: {fileID: 1651578327977778261, guid: c2b14eca8c891fa45babbc2be49880d1,
+    type: 3}
+--- !u!1 &8066729020100111843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7921901967934057032}
+  m_Layer: 0
+  m_Name: BarellOutput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7921901967934057032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066729020100111843}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.551, y: -0.554, z: 2.027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3997531394921068651}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8887891488327688718
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +303,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1861147851791581794

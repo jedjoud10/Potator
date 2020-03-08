@@ -6,7 +6,7 @@ public class PlanetScript : MonoBehaviour
 {
     public float mass;//Planet mass
     private const float gravitationalConstant = -1.0f;//Constant multiplicator for gravity force
-    private const float gravityRotationSpeed = 3.0f;//How fast the player correctly matches up with the ground rotation
+    private const float gravityRotationSpeed = 1.0f;//How fast the player correctly matches up with the ground rotation
     public void Attract(Rigidbody player, float playerMass) //Attract the player to the planet
     {
         Vector3 direction = player.position - transform.position;//Direction from player to planet center        
