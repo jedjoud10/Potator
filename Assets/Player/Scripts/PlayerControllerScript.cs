@@ -16,6 +16,7 @@ public class PlayerControllerScript : NetworkedBehaviour
     private Vector3 movement;//The movement of the player with Y axis
     private Vector2 cameraRotation;//Rotation of camera
     public GameObject cameraHolder;//Object that will hold the main camera
+    private PlanetScript[] planets;//The planets in the scene
     private void Awake()
     {
         //Init player input controls
@@ -38,7 +39,9 @@ public class PlayerControllerScript : NetworkedBehaviour
             cameraobject.tag = "Untagged";
             cameraobject.transform.parent = cameraHolder.transform;
             cameraobject.transform.localPosition = Vector3.zero;
-            Debug.LogError("Camera has been attached correctly");
+
+
+            planets = GameObject.FindObjectsOfType<PlanetScript>();//Init planets
         }
     }
 
@@ -57,6 +60,10 @@ public class PlayerControllerScript : NetworkedBehaviour
             cameraobject.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
             transform.Rotate(new Vector3(0, cameraRotation.x * sensivity), Space.Self);
             weapon.transform.rotation = cameraobject.transform.rotation;
+        }
+        for (int i = 0; i < planets.Length; i++)
+        {
+            planets[i].Attract(rb, 10);//Calculate custom gravity using Newton's force formual
         }
     }
 
