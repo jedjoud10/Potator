@@ -13,6 +13,7 @@ public class PotatoScript : NetworkedBehaviour
     public float mass;//Mass of de potate
     public float rotationForwardSpeed;//How fast the potato looks at the forward vector
     public Vector3 forward;//Forward vector for force to add to potato
+    public GameObject particles;//The particle system that is going to be spawned when the potato crashes ;-;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,13 +46,23 @@ public class PotatoScript : NetworkedBehaviour
             player.transform.position = Vector3.zero;
             player.transform.rotation = Quaternion.identity;
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            InvokeServerRpc(PlayerReset, player);
+            InvokeServerRpc(PlayerResetServer, player);
         }
-        Destroy(gameObject);//Destroy the potato since it hit something
+
+        InvokeServerRpc(SpawnParticlesServer);
+        Destroy(gameObject, 0.1f);//Destroy the potato since it hit something
+        
     }
-    //Reset player
+    //Spawn particles
     [ServerRPC]
-    private void PlayerReset(GameObject player) 
+    private void SpawnParticlesServer() 
+    {
+        GameObject spawnedparticles = Instantiate(particles, transform.position, transform.rotation);
+        spawnedparticles.GetComponent<NetworkedObject>().Spawn();
+    }
+    //Reset player on server
+    [ServerRPC]
+    private void PlayerResetServer(GameObject player) 
     {
         player.transform.position = Vector3.zero;
         player.transform.rotation = Quaternion.identity;

@@ -22,6 +22,7 @@ public class PlayerControllerScript : NetworkedBehaviour
     private bool isJumping;//Is the player jumping ?
     public GameObject cameraHolder;//Object that will hold the main camera
     private PlanetScript[] planets;//The planets in the scene
+    public GameObject glasses;//The glasses of the gamer
 
     public Text usernameText;//3D text that represents the username of the player
     private void Awake()
@@ -44,7 +45,7 @@ public class PlayerControllerScript : NetworkedBehaviour
             cameraobject.tag = "Untagged";
             cameraobject.transform.parent = cameraHolder.transform;
             cameraobject.transform.localPosition = Vector3.zero;
-
+            glasses.SetActive(false);
         }
             planets = GameObject.FindObjectsOfType<PlanetScript>();//Init planets
     }
@@ -57,7 +58,7 @@ public class PlayerControllerScript : NetworkedBehaviour
         movement.z = movementInput.y;
         if (isJumping) //Jumping
         {
-            movement.y = 8 * Time.deltaTime;
+            movement.y = 30 * Time.deltaTime;
         }
         else 
         {
