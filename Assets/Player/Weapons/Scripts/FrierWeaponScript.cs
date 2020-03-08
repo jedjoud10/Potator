@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
-public class FrierWeaponScript : MonoBehaviour
+using MLAPI.Messaging;
+public class FrierWeaponScript : NetworkedBehaviour
 {
     public Transform barreloutput;//The part where the potato comes out
     public GameObject potatoPrefab;//The potato that is going to be shot
@@ -27,21 +28,25 @@ public class FrierWeaponScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShooting) //Shoot the bullet
+        if (isShooting && IsLocalPlayer) //Shoot the bullet
         {
             time += Time.deltaTime;
             if (time >= delaytime)
             {
                 time = 0;
-                GameObject spawnedpotato = Instantiate(potatoPrefab, barreloutput.position, barreloutput.rotation);
-                spawnedpotato.GetComponent<NetworkedObject>().Spawn();
+                InvokeServerRpc(ServerSpawnPotato, barreloutput.position, barreloutput.rotation, barreloutput.forward);
+                Debug.DrawRay(barreloutput.position, barreloutput.forward, Color.red, 1.0f);
             }
         }
-        if (Physics.Raycast(mycamera.transform.position, mycamera.transform.forward * 100000, out hit))
-        {
-            transform.LookAt(hit.point, mycamera.transform.up);//Make gun look at middle of screen so we can use crosshair efficently
-            Debug.DrawRay(mycamera.transform.position, mycamera.transform.forward * 100000);
-        }
+    }
+    //Spawn potato on server
+    [ServerRPC]
+    private void ServerSpawnPotato(Vector3 pos, Quaternion rot, Vector3 forward)
+    {
+        GameObject spawnedpotato = Instantiate(potatoPrefab, pos, rot);
+        spawnedpotato.transform.rotation = rot;
+        spawnedpotato.GetComponent<PotatoScript>().forward = forward;
+        spawnedpotato.GetComponent<NetworkedObject>().Spawn();
     }
     #region Enable/Disable
     private void OnEnable()
