@@ -455,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &377226390
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2294,6 +2294,9 @@ MonoBehaviour:
     - Prefab: {fileID: 1651578327977778261, guid: c2b14eca8c891fa45babbc2be49880d1,
         type: 3}
       PlayerPrefab: 0
+    - Prefab: {fileID: 4493464475847253690, guid: b3580d84bf7374f4a83f20a90a8993fa,
+        type: 3}
+      PlayerPrefab: 0
     PlayerPrefabHash:
       Value: 1897319656204293034
     CreatePlayerPrefab: 1
@@ -2566,7 +2569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2133668984
 RectTransform:
   m_ObjectHideFlags: 0

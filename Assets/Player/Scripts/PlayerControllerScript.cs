@@ -24,7 +24,6 @@ public class PlayerControllerScript : NetworkedBehaviour
     private PlanetScript[] planets;//The planets in the scene
     public GameObject glasses;//The glasses of the gamer
 
-    public Text usernameText;//3D text that represents the username of the player
     private void Awake()
     {
         //Init player input controls
@@ -69,7 +68,6 @@ public class PlayerControllerScript : NetworkedBehaviour
         cameraRotationX = Mathf.Clamp(cameraRotationX, -90, 90);
         if (cameraobject != null)
         {
-            usernameText.gameObject.transform.LookAt(cameraobject.transform);//Make text look at camera
             cameraobject.transform.localEulerAngles = new Vector3(cameraRotationX, 0, 0);
             transform.Rotate(new Vector3(0, cameraRotation.x * sensivity), Space.Self);
             weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, cameraobject.transform.rotation, 7.0f * Time.deltaTime);
@@ -77,15 +75,12 @@ public class PlayerControllerScript : NetworkedBehaviour
         for (int i = 0; i < planets.Length; i++)
         {
             planets[i].Attract(rb, 10);//Calculate custom gravity using Newton's force formual
-        }
-
-        
+        }        
     }
     //Set new username for this player
     public void SetUsername(string _username) 
     {
         username.Value = _username;
-        usernameText.text = _username;
     }
 
     #region Enable/Disable
