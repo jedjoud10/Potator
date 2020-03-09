@@ -38,9 +38,12 @@ public class FrierWeaponScript : NetworkedBehaviour
                 Debug.DrawRay(barreloutput.position, barreloutput.forward, Color.red, 1.0f);
             }
         }
-        if (Physics.Raycast(mycamera.transform.position, mycamera.transform.forward * 1000, out hit)) 
+        if (IsLocalPlayer)
         {
-            transform.LookAt(hit.point, mycamera.transform.up);//Make gun point at center of screen
+            if (Physics.Raycast(mycamera.transform.position, mycamera.transform.forward * 1000, out hit))
+            {
+                transform.LookAt(hit.point, mycamera.transform.up);//Make gun point at center of screen
+            }
         }
     }
     //Spawn potato on server
