@@ -5,24 +5,26 @@ using MLAPI;
 using MLAPI.Messaging;
 public class FrierWeaponScript : NetworkedBehaviour
 {
+    public Transform player;//Our player
     public Transform barreloutput;//The part where the potato comes out
     public GameObject potatoPrefab;//The potato that is going to be shot
     private bool isShooting;//Are we shooting
+    private Vector2 mousePosition;//The mouse position on the screen
     private PlayerInputActions inputAction;
     private float time;//Time that we are shooting
     public float delaytime;//Delay between each shot
-    private GameObject mycamera;//Camera of player
-    private RaycastHit hit;//The hit out struct of the raycast
+    private Camera mycamera;//Camera of player
 
     void Awake()
     {
         inputAction = new PlayerInputActions();
         inputAction.PlayerControls.Shoot.performed += ctx => isShooting = ctx.ReadValueAsButton();
+        inputAction.PlayerControls.Camera.performed += ctx => mousePosition = ctx.ReadValue<Vector2>();
     }
     // Start is called before the first frame update
     private void Start()
     {
-        mycamera = GameObject.FindObjectOfType<Camera>().gameObject;
+        mycamera = GameObject.FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -40,10 +42,10 @@ public class FrierWeaponScript : NetworkedBehaviour
         }
         if (IsLocalPlayer)
         {
-            if (Physics.Raycast(mycamera.transform.position, mycamera.transform.forward * 1000, out hit))
-            {
-                transform.LookAt(hit.point, mycamera.transform.up);//Make gun point at center of screen
-            }
+            Vector3 worldpos = mycamera.ScreenToWorldPoint(mousePosition);//Get world position from cursor mouse position
+            worldpos.z = transform.position.z;//Reset z value of the world position
+            transform.LookAt(worldpos, player.transform.up);//Make gun point at center of screen    
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1.0f);
         }
     }
     //Spawn potato on server
