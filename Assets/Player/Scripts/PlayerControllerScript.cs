@@ -11,8 +11,6 @@ public class PlayerControllerScript : NetworkedBehaviour
     public NetworkedVar<string> username = new NetworkedVar<string>("Default Username");//The username of the player
     private Rigidbody2D rb;//The rigidbody that the player has for physics
     public float speed;//The walking speed of the player
-    public float jumpHeight;//The height of jump fo the player
-    private bool canJump;//If the player can jump
     private GameObject cameraobject;//the camera of the player
     private PlayerInputActions inputAction;//Input actions
     private Vector2 movementInput;//Movement input of player
@@ -47,21 +45,15 @@ public class PlayerControllerScript : NetworkedBehaviour
     void Update()
     {
         //Init full movement values
-        movement.x = movementInput.x;        
-        movementVector = transform.TransformDirection(movement * speed * Time.deltaTime);
+        if (!IsLocalPlayer) { return;  }
+        movement.x = movementInput.x;
+        movement.y = movementInput.y;
+        movementVector = transform.TransformDirection(movement * speed) * Time.deltaTime;
         rb.MovePosition(rb.position + new Vector2(movementVector.x, movementVector.y));
         for (int i = 0; i < planets.Length; i++)
         {
             planets[i].Attract(rb, mass);//Calculate custom gravity using Newton's force formual
         }
-        if (canJump)
-        {
-            //movement.y = movementInput.y * jumpHeight;
-        }
-        else 
-        {
-            //movement.y = 0;
-        }       
     }
     //Set new username for this player
     public void SetUsername(string _username) 
@@ -77,16 +69,6 @@ public class PlayerControllerScript : NetworkedBehaviour
     private void OnDisable()
     {
         inputAction.Disable();//We finished game, so disable them
-    }
-    #endregion
-    #region Collision
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        canJump = true;
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        canJump = false;
     }
     #endregion
 }

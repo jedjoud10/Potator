@@ -6,7 +6,12 @@ public class PlanetScript : MonoBehaviour
 {
     public float mass;//Planet mass
     private const float gravitationalConstant = -7f;//Constant multiplicator for gravity force
-    private const float gravityRotationSpeed = 0.001f;//How fast the player correctly matches up with the ground rotation
+    private const float gravityRotationSpeed = 0.0001f;//How fast the player correctly matches up with the ground rotation
+    public float planetRotationRadiusThreshold;//How close we are to the planet so that we get planetary rotation
+    public void Start()
+    {
+        mass = transform.localScale.magnitude * 100;
+    }
     public void Attract(Rigidbody2D player, float playerMass) //Attract the player to the planet
     {
         Vector2 direction = player.position - new Vector2(transform.position.x, transform.position.y);//Direction from player to planet center  
@@ -17,8 +22,14 @@ public class PlanetScript : MonoBehaviour
         Vector2 force = direction.normalized * forceStrengh;
         player.AddForce(force * Time.deltaTime);//Add custom gravity
 
-
-        Quaternion targetRotation = Quaternion.FromToRotation(player.transform.up, direction.normalized) * player.transform.rotation;//The rotation we want to get at
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime  * -forceStrengh * gravityRotationSpeed);//Smoothed out rotation
+        if((player.transform.position - transform.position).magnitude < planetRotationRadiusThreshold) 
+        {
+            Vector3 targetRotation = direction3D;//The rotation we want to get at
+            player.transform.up = Vector3.Lerp(player.transform.up, targetRotation, Time.deltaTime * Mathf.Abs(forceStrengh) * gravityRotationSpeed);//Smoothed out rotation
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, planetRotationRadiusThreshold);
     }
 }
