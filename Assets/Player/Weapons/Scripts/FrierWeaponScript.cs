@@ -7,6 +7,7 @@ public class FrierWeaponScript : NetworkedBehaviour
 {
     public Transform crosshair;//Crosshair opf the local player
     public Transform player;//Our player
+    private Rigidbody2D playerRigidbody;//The rigidbody of the player
     public Transform barreloutput;//The part where the potato comes out
     public GameObject potatoPrefab;//The potato that is going to be shot
     public GameObject shootparticles;//The poarticles that aere spawned when you shoot the frier
@@ -29,6 +30,7 @@ public class FrierWeaponScript : NetworkedBehaviour
         mycamera = GameObject.FindObjectOfType<Camera>();
         if (IsLocalPlayer) 
         {
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
             crosshair.gameObject.SetActive(true);
         }
     }
@@ -42,6 +44,7 @@ public class FrierWeaponScript : NetworkedBehaviour
             if (time >= delaytime)
             {
                 time = 0;
+                playerRigidbody.AddForceAtPosition(-transform.right * 1000, transform.position);
                 InvokeServerRpc(ServerSpawnPotato, barreloutput.position, barreloutput.rotation, barreloutput.forward);
                 Debug.DrawRay(barreloutput.position, barreloutput.forward, Color.red, 1.0f);
             }
@@ -51,7 +54,7 @@ public class FrierWeaponScript : NetworkedBehaviour
             Vector3 worldpos = mycamera.ScreenToWorldPoint(mousePosition);//Get world position from cursor mouse position
             worldpos.z = transform.position.z;//Reset z value of the world position
             transform.LookAt(worldpos, player.transform.up);//Make gun point at center of screen    
-            transform.position = new Vector3(transform.position.x, transform.position.y, -5.0f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, -5.0f);            
             worldpos.z = -5;
             crosshair.transform.position = worldpos;
         }

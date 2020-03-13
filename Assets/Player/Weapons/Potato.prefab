@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1254863824656061463}
   - component: {fileID: 7783137251460842882}
   - component: {fileID: 9216105847004767106}
+  - component: {fileID: 970046030437546727}
   m_Layer: 0
   m_Name: Potato
   m_TagString: Untagged
@@ -65,14 +66,14 @@ MonoBehaviour:
   m_Script: {fileID: -410691123, guid: 01701b64234b4d523d8045142cbc73fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 40
+  FixedSendsPerSecond: 120
   AssumeSyncedSends: 1
   InterpolatePosition: 1
   SnapDistance: 10
   InterpolateServer: 1
   MinMeters: 0.15
   MinDegrees: 1.5
-  ExtrapolatePosition: 0
+  ExtrapolatePosition: 1
   MaxSendsToExtrapolate: 5
   Channel: 
   EnableRange: 0
@@ -115,8 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerprefab: {fileID: 8887891488327688718, guid: 04f127d37eb659c4c8672491af2688ec,
     type: 3}
-  speed: 700
-  mass: 10
+  speed: 7000
   rotationForwardSpeed: 0.1
   forward: {x: 0, y: 0, z: 0}
   particles: {fileID: 4493464475847253690, guid: b3580d84bf7374f4a83f20a90a8993fa,
@@ -209,3 +209,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &970046030437546727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651578327977778261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39bb42d53e008fe4ba87f52e5f703fd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 5

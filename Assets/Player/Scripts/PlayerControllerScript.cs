@@ -20,6 +20,9 @@ public class PlayerControllerScript : NetworkedBehaviour
     private PlanetScript[] planets;//The planets in the scene
     public float mass;//Player mass
 
+    public GameObject playerDir1;//Whne the player walks forward
+    public GameObject playerDir2;//When the player walks backward
+
     private void Awake()
     {
         //Init player input controls
@@ -46,14 +49,29 @@ public class PlayerControllerScript : NetworkedBehaviour
     {
         //Init full movement values
         if (!IsLocalPlayer) { return;  }
-        movement.x = movementInput.x;
-        movement.y = movementInput.y;
-        movementVector = transform.TransformDirection(movement * speed) * Time.deltaTime;
-        rb.MovePosition(rb.position + new Vector2(movementVector.x, movementVector.y));
+        movement.x = movementInput.x * speed;
+        movement.y = movementInput.y * speed;
+        movementVector = transform.TransformDirection(movement);      
+        if(movement.x < 0) 
+        {
+            playerDir1.SetActive(false);
+            playerDir2.SetActive(true);
+        }
+        else 
+        {
+            playerDir1.SetActive(true);
+            playerDir2.SetActive(false);
+        }
+    }
+    //Update for physics
+    void FixedUpdate()
+    {
+        if (!IsLocalPlayer) { return; }
         for (int i = 0; i < planets.Length; i++)
         {
             planets[i].Attract(rb, mass);//Calculate custom gravity using Newton's force formual
         }
+        rb.AddForce(new Vector2(movementVector.x, movementVector.y));
     }
     //Set new username for this player
     public void SetUsername(string _username) 

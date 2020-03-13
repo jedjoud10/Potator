@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlanetRigidbodyScript : MonoBehaviour
 {
     public float mass;//Planet mass
-    private const float gravitationalConstant = -10f;//Constant multiplicator for gravity force
+    private const float gravitationalConstant = -1f;//Constant multiplicator for gravity force
     public void Start()
     {
-        mass = transform.localScale.magnitude * 30;
+        mass = transform.localScale.magnitude * 10;
     }
     public void Attract(Rigidbody2D rb, float rbMass) //Attract the player to the planet
     {
@@ -17,6 +17,6 @@ public class PlanetRigidbodyScript : MonoBehaviour
 
         float forceStrengh = ((rbMass * mass) / (distance * distance)) * gravitationalConstant;
         Vector2 force = direction.normalized * forceStrengh;
-        rb.AddForce(force * Time.deltaTime);//Add custom gravity
+        rb.AddForce(force);//Add custom gravity
     }
 }

@@ -14,6 +14,7 @@ public class MainMenuUIScript : MonoBehaviour
     public GameObject lobbyPanel;//Panel when we are in lobby/main menu
     public NetworkingManager networkManager;//The network manager for the game scene
     public UnetTransport unetTransport;//Script on the network manager that allows us to change the IP of the server that we are going to connect to
+
     // Start is called before the first frame update
     void Start()
     {

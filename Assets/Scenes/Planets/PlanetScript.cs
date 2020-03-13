@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlanetScript : MonoBehaviour
 {
     public float mass;//Planet mass
-    private const float gravitationalConstant = -7f;//Constant multiplicator for gravity force
-    private const float gravityRotationSpeed = 0.0001f;//How fast the player correctly matches up with the ground rotation
+    private const float gravitationalConstant = -1f;//Constant multiplicator for gravity force
+    private const float gravityRotationSpeed = 0.07f;//How fast the player correctly matches up with the ground rotation
     public float planetRotationRadiusThreshold;//How close we are to the planet so that we get planetary rotation
     public void Start()
     {
-        mass = transform.localScale.magnitude * 100;
+        mass = transform.localScale.magnitude * 10;
     }
     public void Attract(Rigidbody2D player, float playerMass) //Attract the player to the planet
     {
@@ -20,7 +20,7 @@ public class PlanetScript : MonoBehaviour
 
         float forceStrengh = ((playerMass * mass) / (distance * distance)) * gravitationalConstant;
         Vector2 force = direction.normalized * forceStrengh;
-        player.AddForce(force * Time.deltaTime);//Add custom gravity
+        player.AddForce(force);//Add custom gravity
 
         if((player.transform.position - transform.position).magnitude < planetRotationRadiusThreshold) 
         {

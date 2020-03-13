@@ -7,10 +7,8 @@ using MLAPI.Messaging;
 public class PotatoScript : NetworkedBehaviour
 {
     public GameObject playerprefab;//The player prefab that will be respawned when we kill a player
-    private PlanetRigidbodyScript[] planets;//Planets for gravity calculations
     private Rigidbody2D rb;//The rigidbody of de potatoeeoe
     public float speed;//Speed of de potatoeoe
-    public float mass;//Mass of de potate
     public float rotationForwardSpeed;//How fast the potato looks at the forward vector
     public Vector3 forward;//Forward vector for force to add to potato
     public GameObject particles;//The particle system that is going to be spawned when the potato crashes ;-;
@@ -18,7 +16,6 @@ public class PotatoScript : NetworkedBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        planets = GameObject.FindObjectsOfType<PlanetRigidbodyScript>();
         rb.AddForce(forward * speed);
         Destroy(gameObject, 10.0f);//Potatoes dont live forever ;-;
         transform.rotation = Quaternion.LookRotation(forward);
@@ -31,10 +28,6 @@ public class PotatoScript : NetworkedBehaviour
         {
             float rot_z = Mathf.Atan2(rb.velocity.normalized.y, rb.velocity.normalized.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        }
-        for (int i = 0; i < planets.Length; i++)
-        {
-            planets[i].Attract(rb, mass);//Calculate custom gravity using Newton's force formual for potates/rigidbodies only and not player
         }
     }
     //When we hit something
