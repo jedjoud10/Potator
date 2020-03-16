@@ -66,14 +66,14 @@ MonoBehaviour:
   m_Script: {fileID: -410691123, guid: 01701b64234b4d523d8045142cbc73fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 120
+  FixedSendsPerSecond: 40
   AssumeSyncedSends: 1
   InterpolatePosition: 1
   SnapDistance: 10
   InterpolateServer: 1
   MinMeters: 0.15
   MinDegrees: 1.5
-  ExtrapolatePosition: 1
+  ExtrapolatePosition: 0
   MaxSendsToExtrapolate: 5
   Channel: 
   EnableRange: 0

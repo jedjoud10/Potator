@@ -38,14 +38,14 @@ public class FrierWeaponScript : NetworkedBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShooting && IsLocalPlayer) //Shoot the bullet
+        if (isShooting && IsLocalPlayer && IsClient) //Shoot the bullet
         {
             time += Time.deltaTime;
             if (time >= delaytime)
             {
                 time = 0;
                 playerRigidbody.AddForceAtPosition(-transform.right * 1000, transform.position);
-                InvokeServerRpc(ServerSpawnPotato, barreloutput.position, barreloutput.rotation, barreloutput.forward);
+                InvokeServerRpc(ServerSpawnPotato, barreloutput.position, barreloutput.rotation, barreloutput.forward, OwnerClientId);
                 Debug.DrawRay(barreloutput.position, barreloutput.forward, Color.red, 1.0f);
             }
         }
@@ -61,7 +61,7 @@ public class FrierWeaponScript : NetworkedBehaviour
     }
     //Spawn potato on server
     [ServerRPC]
-    private void ServerSpawnPotato(Vector3 pos, Quaternion rot, Vector3 forward)
+    private void ServerSpawnPotato(Vector3 pos, Quaternion rot, Vector3 forward, ulong clientid)
     {
         GameObject spawnedpotato = Instantiate(potatoPrefab, pos, rot);
         spawnedpotato.transform.rotation = rot;

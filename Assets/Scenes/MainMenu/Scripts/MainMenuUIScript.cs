@@ -53,6 +53,9 @@ public class MainMenuUIScript : MonoBehaviour
     public void StartGame() 
     {
         //Get current client player and set username for that player
+        string name = username_InputField.text;
+        if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) name = "Default Username";
+        GameObject.FindObjectOfType<Camera>().transform.parent.parent.GetComponent<PlayerControllerScript>().SetUsername(name);
         MainMenuUI.SetActive(false);//Hide UI
     }
 }

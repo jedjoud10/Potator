@@ -23,6 +23,8 @@ public class PlayerControllerScript : NetworkedBehaviour
     public GameObject playerDir1;//Whne the player walks forward
     public GameObject playerDir2;//When the player walks backward
 
+    public Text usernameText;//Text box showing the username of the player
+
     private void Awake()
     {
         //Init player input controls
@@ -40,6 +42,10 @@ public class PlayerControllerScript : NetworkedBehaviour
             cameraobject.tag = "Untagged";
             cameraobject.transform.parent = cameraHolder.transform;
             cameraobject.transform.localPosition = Vector3.zero;
+        }
+        else 
+        {
+            SetUsername(username.Value);
         }
         planets = GameObject.FindObjectsOfType<PlanetScript>();//Init planets
     }
@@ -76,9 +82,25 @@ public class PlayerControllerScript : NetworkedBehaviour
     //Set new username for this player
     public void SetUsername(string _username) 
     {
-        username.Value = _username;
+        usernameText.text = _username;
+        InvokeServerRpc(SetUsernameServer, _username, this);
     }
-
+    //Set new username server
+    [ServerRPC]
+    private void SetUsernameServer(string _username, PlayerControllerScript _player)
+    {
+        username.Value = _username;
+        InvokeClientRpcOnEveryone(SetUsernameClient, _username, _player);
+    }
+    //Set new username on all clients
+    [ClientRPC]
+    private void SetUsernameClient(string _username, PlayerControllerScript _player)
+    {
+        if (!IsLocalPlayer)
+        {
+            _player.usernameText.text = _username;
+        }
+    }
     #region Enable/Disable
     private void OnEnable()
     {

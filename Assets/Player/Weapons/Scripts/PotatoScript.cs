@@ -42,10 +42,7 @@ public class PotatoScript : NetworkedBehaviour
             player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             InvokeServerRpc(PlayerResetServer, player);
         }
-
-        InvokeServerRpc(SpawnParticlesServer);
-        Destroy(gameObject, 0.1f);//Destroy the potato since it hit something
-        
+        InvokeServerRpc(SpawnParticlesServer);       
     }
     //Spawn particles
     [ServerRPC]
@@ -53,6 +50,7 @@ public class PotatoScript : NetworkedBehaviour
     {
         GameObject spawnedparticles = Instantiate(particles, transform.position, transform.rotation);
         spawnedparticles.GetComponent<NetworkedObject>().Spawn();
+        Destroy(gameObject, 0.1f);//Destroy the potato since it hit something
     }
     //Reset player on server
     [ServerRPC]
