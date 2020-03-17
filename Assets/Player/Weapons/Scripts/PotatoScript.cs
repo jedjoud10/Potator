@@ -12,6 +12,7 @@ public class PotatoScript : NetworkedBehaviour
     public float rotationForwardSpeed;//How fast the potato looks at the forward vector
     public Vector3 forward;//Forward vector for force to add to potato
     public GameObject particles;//The particle system that is going to be spawned when the potato crashes ;-;
+    public int damage;//How much damage this potato does
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +34,10 @@ public class PotatoScript : NetworkedBehaviour
     //When we hit something
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerControllerScript>() != null)//If we hit a player 
+        if(collision.gameObject.GetComponent<PlayerHealthScript>() != null)//If we hit a player 
         {
-            //Reset player
-            GameObject player = collision.gameObject;
-            player.transform.position = Vector3.zero;
-            player.transform.rotation = Quaternion.identity;
-            player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            InvokeServerRpc(PlayerResetServer, player);
+            PlayerHealthScript playerHealthScript = collision.gameObject.GetComponent<PlayerHealthScript>();
+            playerHealthScript.DamagePlayer(damage);
         }
         InvokeServerRpc(SpawnParticlesServer);       
     }
@@ -51,13 +48,5 @@ public class PotatoScript : NetworkedBehaviour
         GameObject spawnedparticles = Instantiate(particles, transform.position, transform.rotation);
         spawnedparticles.GetComponent<NetworkedObject>().Spawn();
         Destroy(gameObject, 0.1f);//Destroy the potato since it hit something
-    }
-    //Reset player on server
-    [ServerRPC]
-    private void PlayerResetServer(GameObject player) 
-    {
-        player.transform.position = Vector3.zero;
-        player.transform.rotation = Quaternion.identity;
-        player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 }

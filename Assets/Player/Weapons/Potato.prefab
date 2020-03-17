@@ -121,6 +121,7 @@ MonoBehaviour:
   forward: {x: 0, y: 0, z: 0}
   particles: {fileID: 4493464475847253690, guid: b3580d84bf7374f4a83f20a90a8993fa,
     type: 3}
+  damage: 10
 --- !u!50 &1254863824656061463
 Rigidbody2D:
   serializedVersion: 4
