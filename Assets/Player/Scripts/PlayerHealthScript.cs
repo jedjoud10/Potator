@@ -47,7 +47,8 @@ public class PlayerHealthScript : NetworkedBehaviour
         {
             Respawn();
             InvokeClientRpcOnClient(RespawnClient , _clientId);
-            SetHealthServer(_maxHealth, _maxHealth, _healthScript, _clientId);
+            health.Value = _maxHealth;
+            _health = _maxHealth;
         }
         InvokeClientRpcOnEveryone(SetHealthClient, _health, _maxHealth, _healthScript);
     }

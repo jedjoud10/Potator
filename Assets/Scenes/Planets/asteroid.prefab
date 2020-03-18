@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1303009142335301664}
   - component: {fileID: 1303009142335301666}
   - component: {fileID: 1303009142335301669}
+  - component: {fileID: 5788631004979420658}
   m_Layer: 0
   m_Name: asteroid
   m_TagString: Untagged
@@ -99,3 +100,35 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.080000006
+--- !u!114 &5788631004979420658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303009142335301668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.071542755, y: 0.03804308, z: 0}
+  - {x: -0.08252816, y: -0.014865469, z: 0}
+  - {x: -0.060087055, y: -0.055371784, z: 0}
+  - {x: -0.0039005082, y: -0.08254668, z: 0}
+  - {x: 0.036513794, y: -0.07367599, z: 0}
+  - {x: 0.076557055, y: -0.032251045, z: 0}
+  - {x: 0.08211785, y: 0.014056884, z: 0}
+  - {x: 0.060697734, y: 0.053681675, z: 0}
+  - {x: 0.023659807, y: 0.08110725, z: 0}
+  - {x: -0.040554702, y: 0.07520177, z: 0}
+  m_ShapePathHash: 1912231036
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 16688
