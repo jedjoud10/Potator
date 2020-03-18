@@ -6,7 +6,7 @@ public class PlanetScript : MonoBehaviour
 {
     public float mass;//Planet mass
     private const float gravitationalConstant = -1f;//Constant multiplicator for gravity force
-    private const float gravityRotationSpeed = 0.07f;//How fast the player correctly matches up with the ground rotation
+    private const float gravityRotationSpeed = 0.3f;//How fast the player correctly matches up with the ground rotation
     public float planetRotationRadiusThreshold;//How close we are to the planet so that we get planetary rotation
     public void Start()
     {
@@ -24,8 +24,8 @@ public class PlanetScript : MonoBehaviour
 
         if((player.transform.position - transform.position).magnitude < planetRotationRadiusThreshold) 
         {
-            Vector3 targetRotation = direction3D;//The rotation we want to get at
-            player.transform.up = Vector3.Lerp(player.transform.up, targetRotation, Time.deltaTime * Mathf.Abs(forceStrengh) * gravityRotationSpeed);//Smoothed out rotation
+            float targetRotation = Mathf.Atan2(direction.y, direction.x) * 180/Mathf.PI;//The rotation we want to get at
+            player.rotation = Mathf.LerpAngle(player.rotation, targetRotation - 90, Time.deltaTime * Mathf.Abs(forceStrengh) * gravityRotationSpeed);//Smoothed out rotation
         }
     }
     private void OnDrawGizmos()
