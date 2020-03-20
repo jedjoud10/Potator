@@ -47,6 +47,6 @@ public class PotatoScript : NetworkedBehaviour
     {
         GameObject spawnedparticles = Instantiate(particles, transform.position, transform.rotation);
         spawnedparticles.GetComponent<NetworkedObject>().Spawn();
-        Destroy(gameObject);//Destroy the potato since it hit something
+        Destroy(gameObject, 0.5f);//Destroy the potato since it hit something
     }
 }

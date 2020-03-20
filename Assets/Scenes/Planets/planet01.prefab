@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7419276355050362901}
   - component: {fileID: 7419276355050362900}
   - component: {fileID: 7419276355050362907}
-  - component: {fileID: 3216031609723170714}
   m_Layer: 0
   m_Name: planet01
   m_TagString: Untagged
@@ -129,41 +128,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.32
---- !u!114 &3216031609723170714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7419276355050362906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.2944459, y: -0.14723836, z: 0}
-  - {x: -0.21345454, y: -0.24467346, z: 0}
-  - {x: -0.10698133, y: -0.30289602, z: 0}
-  - {x: 0.005694085, y: -0.32625175, z: 0}
-  - {x: 0.14043729, y: -0.28785083, z: 0}
-  - {x: 0.24365515, y: -0.21031173, z: 0}
-  - {x: 0.29801863, y: -0.11614367, z: 0}
-  - {x: 0.3239286, y: 0.0049119475, z: 0}
-  - {x: 0.29221874, y: 0.1486648, z: 0}
-  - {x: 0.20798597, y: 0.24614303, z: 0}
-  - {x: 0.0950391, y: 0.3083287, z: 0}
-  - {x: -0.011810032, y: 0.31921902, z: 0}
-  - {x: -0.14786232, y: 0.29080233, z: 0}
-  - {x: -0.2432414, y: 0.21636377, z: 0}
-  - {x: -0.3080077, y: 0.11496404, z: 0}
-  - {x: -0.32480967, y: -0.015864586, z: 0}
-  m_ShapePathHash: -1166551004
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -6410

@@ -25,6 +25,9 @@ public class PlayerControllerScript : NetworkedBehaviour
 
     public Text usernameText;//Text box showing the username of the player
 
+    private bool currentDirection;
+    private bool lastDirection;
+
     private void Awake()
     {
         //Init player input controls
@@ -57,17 +60,33 @@ public class PlayerControllerScript : NetworkedBehaviour
         if (!IsLocalPlayer) { return;  }
         movement.x = movementInput.x * speed;
         movement.y = movementInput.y * speed;
-        movementVector = transform.TransformDirection(movement);      
-        if(movement.x < 0) 
-        {
-            playerDir1.SetActive(false);
-            playerDir2.SetActive(true);
-        }
-        else 
-        {
-            playerDir1.SetActive(true);
-            playerDir2.SetActive(false);
-        }
+        movementVector = transform.TransformDirection(movement);
+        if (movement.x != 0) currentDirection = movement.x > 0;       
+        if(currentDirection != lastDirection) SetDirection(currentDirection);
+        lastDirection = currentDirection;
+    }
+    //Sets the moving direction of the player
+    private void SetDirection(bool direction) 
+    {
+        playerDir1.SetActive(direction);
+        playerDir2.SetActive(!direction);
+        InvokeServerRpc(SetDirectionServer, direction, this);
+    }
+    //Sets the moving direction of the player on the server
+    [ServerRPC]
+    private void SetDirectionServer(bool direction, PlayerControllerScript player) 
+    {
+        player.playerDir1.SetActive(direction);
+        player.playerDir2.SetActive(!direction);
+        InvokeClientRpcOnEveryone(SetDirectionClient, direction, player);
+    }
+    //Sets the moving direction of the player on another client
+    [ClientRPC]
+    private void SetDirectionClient(bool direction, PlayerControllerScript player) 
+    {
+        if (IsLocalPlayer) return;//No need to change directions two times
+        player.playerDir1.SetActive(direction);
+        player.playerDir2.SetActive(!direction);
     }
     //Update for physics
     void FixedUpdate()
